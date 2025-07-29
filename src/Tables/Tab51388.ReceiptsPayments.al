@@ -104,6 +104,7 @@ Table 51388 "Receipts & Payments"
 
             trigger OnValidate()
             begin
+
                 CalcFields("Un allocated Amount");
                 Validate("Un allocated Amount");
             end;
@@ -144,6 +145,11 @@ Table 51388 "Receipts & Payments"
         {
             Editable = false;
             FieldClass = Normal;
+            trigger OnValidate()
+            var
+            begin
+                "Un allocated Amount" := Amount - "Allocated Amount";
+            end;
         }
         field(50002; Source; Option)
         {
@@ -220,8 +226,8 @@ Table 51388 "Receipts & Payments"
         }
         field(50015; "Excess Transaction Type"; Option)
         {
-            OptionCaption = 'Deposit Contribution,Safari Saving,Silver Savings,Junior Savings';
-            OptionMembers = "Deposit Contribution","Safari Saving","Silver Savings","Junior Savings";
+            OptionCaption = 'Deposit Contribution,Share Capital,Loan Repayment,Insurances';
+            OptionMembers = "Deposit Contribution","Share Capital","Loan Repayment","Insurance";
         }
     }
 
@@ -310,6 +316,6 @@ Table 51388 "Receipts & Payments"
         GLAcc: Record "G/L Account";
         // PayLine: Record "Payment Line.";
         Banks: Record "Bank Account";
-        SFactory: Codeunit "SURESTEP Factory";
+        SFactory: Codeunit "SWIZZSFT Factory";
 }
 

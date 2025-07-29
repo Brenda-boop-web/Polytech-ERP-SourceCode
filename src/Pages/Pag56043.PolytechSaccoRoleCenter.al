@@ -14,9 +14,7 @@ Page 56043 "Polytech Sacco Role Center"
             {
                 ApplicationArea = All;
                 Visible = false;
-
             }
-
             part(Control99; "Finance Performance")
             {
                 ApplicationArea = Basic, Suite;
@@ -26,19 +24,18 @@ Page 56043 "Polytech Sacco Role Center"
             {
                 ApplicationArea = Basic, Suite;
                 Visible = true;
+            }
+            // part(FOSACue; "FOSA Cue")
+            // {
+            //     ApplicationArea = Basic, Suite;
+            //     Visible = false;
 
-            }
-            part(FOSACue; "FOSA Cue")
-            {
-                ApplicationArea = Basic, Suite;
-                Visible = false;
-
-            }
-            part("LoansCue"; "Loans Cue")
-            {
-                ApplicationArea = Suite;
-                Visible = true;
-            }
+            // }
+            // part("LoansCue"; "Loans Cue")
+            // {
+            //     ApplicationArea = Suite;
+            //     Visible = true;
+            // }
             part("General Cue"; "General Cue")
             {
                 ApplicationArea = Suite;
@@ -56,54 +53,54 @@ Page 56043 "Polytech Sacco Role Center"
                 ApplicationArea = Basic, Suite;
                 Visible = true;
             }
-            part(Control123; "Team Member Activities")
-            {
-                ApplicationArea = Suite;
-                Visible = false;
-            }
-            part(Control1907692008; "My Accounts")
-            {
-                ApplicationArea = Basic, Suite;
-                Visible = false;
-            }
-            part(Control103; "Trailing Sales Orders Chart")
-            {
-                ApplicationArea = Basic, Suite;
-                Visible = false;
-            }
+            // part(Control123; "Team Member Activities")
+            // {
+            //     ApplicationArea = Suite;
+            //     Visible = false;
+            // }
+            // part(Control1907692008; "My Accounts")
+            // {
+            //     ApplicationArea = Basic, Suite;
+            //     Visible = false;
+            // }
+            // part(Control103; "Trailing Sales Orders Chart")
+            // {
+            //     ApplicationArea = Basic, Suite;
+            //     Visible = false;
+            // }
 
-            part(Control106; "My Job Queue")
-            {
-                ApplicationArea = Basic, Suite;
-                Visible = false;
-            }
-            part(Control9; "Help And Chart Wrapper")
-            {
-                ApplicationArea = Basic, Suite;
-                Visible = false;
-            }
-            part(Control100; "Cash Flow Forecast Chart")
-            {
-                ApplicationArea = Basic, Suite;
-                Visible = false;
-            }
-            part(Control108; "Report Inbox Part")
-            {
-                AccessByPermission = TableData "Report Inbox" = IMD;
-                ApplicationArea = Basic, Suite;
-                Visible = false;
-            }
-            part(Control122; "Power BI Report Spinner Part")
-            {
-                ApplicationArea = Basic, Suite;
-                Visible = false;
-            }
+            // part(Control106; "My Job Queue")
+            // {
+            //     ApplicationArea = Basic, Suite;
+            //     Visible = false;
+            // }
+            // part(Control9; "Help And Chart Wrapper")
+            // {
+            //     ApplicationArea = Basic, Suite;
+            //     Visible = false;
+            // }
+            // part(Control100; "Cash Flow Forecast Chart")
+            // {
+            //     ApplicationArea = Basic, Suite;
+            //     Visible = false;
+            // }
+            // part(Control108; "Report Inbox Part")
+            // {
+            //     AccessByPermission = TableData "Report Inbox" = IMD;
+            //     ApplicationArea = Basic, Suite;
+            //     Visible = false;
+            // }
+            // part(Control122; "Power BI Report Spinner Part")
+            // {
+            //     ApplicationArea = Basic, Suite;
+            //     Visible = false;
+            // }
 
-            systempart(Control1901377608; MyNotes)
-            {
-                ApplicationArea = Basic, Suite;
-                Visible = false;
-            }
+            // systempart(Control1901377608; MyNotes)
+            // {
+            //     ApplicationArea = Basic, Suite;
+            //     Visible = false;
+            // }
         }
     }
 
@@ -138,6 +135,7 @@ Page 56043 "Polytech Sacco Role Center"
                 Caption = 'M-Wallet Accounts';
                 Image = Vendor;
                 RunObject = Page "Product Details Master";
+                RunPageView = where("Account Type" = filter('M-Wallet'));
                 ToolTip = 'View or edit detailed information for the Mobile Wallet Accounts.';
 
             }
@@ -223,10 +221,6 @@ Page 56043 "Polytech Sacco Role Center"
                     Caption = 'General Ledger and General Journals';
                     ToolTip = 'Process incoming and outgoing payments. Set up bank accounts and service connections for electronic banking.  ';
                     Visible = true;
-
-
-
-
                     action("G/L Register")
                     {
                         ApplicationArea = Basic, Suite;
@@ -420,7 +414,7 @@ Page 56043 "Polytech Sacco Role Center"
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Loans Defaulter Aging';
-                        RunObject = report "SASRA Loans Classification";
+                        RunObject = report "Loans Defaulter Aging";//"SASRA Loans Classification"
                     }
 
                     // action("Sectorial Lending Report")
@@ -434,9 +428,16 @@ Page 56043 "Polytech Sacco Role Center"
 
                     action("Risk Class of Assets")
                     {
+                        Visible = false;
                         ApplicationArea = Basic, Suite;
                         Caption = 'Risk Classification and Loan Provisioning';
                         RunObject = report "Risk Class Of Assets & Prov";
+                    }
+                    action("Risk Class of Assets Nav")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Risk Classification and Loan Provisioning';
+                        RunObject = report "Risk Class Of Assets & ProvNav";
                     }
 
                     // action("Loans Provisioning Summary-SASRA")
@@ -450,6 +451,13 @@ Page 56043 "Polytech Sacco Role Center"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Loan Sectorial Lending';
                         RunObject = REPORT "Loan Sectoral Lending Report";
+                        Visible = false;
+                    }
+                    action("Loan Sectorial Lendng-Nav")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Loan Sectorial Lending -Nav';
+                        RunObject = REPORT "SECTORAL LENDING";
                     }
 
                 }
@@ -481,7 +489,6 @@ Page 56043 "Polytech Sacco Role Center"
                         Caption = 'Payment Vouchers Posting';
                         Image = Journal;
                         RunObject = Page "Payment List";
-
                     }
 
                     action("Posted Payment Vouchers")
@@ -505,11 +512,13 @@ Page 56043 "Polytech Sacco Role Center"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Posted Petty Cash';
                         RunObject = page "Posted PettyCash Payment List";
-
                     }
-
-
-
+                    action("Sitting Allowance Report")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Board Sitting Allowance Report';
+                        RunObject = report "Sitting Allowance Members";
+                    }
 
                 }
                 Group(FundsTranfer)
@@ -620,18 +629,76 @@ Page 56043 "Polytech Sacco Role Center"
 
                         }
 
-                        action("Fixed Assets Book Value")
+                        action("Fixed Assets Book Value1")
                         {
                             ApplicationArea = Basic, Suite;
-                            Caption = 'Fixed Assets Book Value';
-                            RunObject = report FixeAssetbookValueReport;
+                            Caption = 'Fixed Assets Book Value 1';
+                            RunObject = report "Fixed Asset - Book Value 01";//FixeAssetbookValueReport;
 
+                        }
+                        action("Fixed Assets Book Value2")
+                        {
+                            ApplicationArea = Basic, Suite;
+                            Caption = 'Fixed Assets Book Value 2';
+                            RunObject = report "Fixed Asset - Book Value 02";//FixeAssetbookValueReport;
                         }
 
                     }
 
 
 
+                }
+                group(Payables)
+                {
+                    Caption = 'Payables';
+                    action(vendors)
+                    {
+                        ApplicationArea = all;
+                        Caption = 'Vendor List';
+                        RunObject = Page "Vendor List";
+                        ToolTip = 'View Vendor List';
+                        Visible = true;
+                    }
+                    action("Purchase Invoicing")
+                    {
+                        ApplicationArea = all;
+                        Caption = 'Purchase Invoicing';
+                        RunObject = Page "Purchase Invoices";
+                        Visible = true;
+                    }
+                    action("Purchase Credit Memo")
+                    {
+                        ApplicationArea = all;
+                        Caption = 'Purchase Credit Memo';
+                        RunObject = Page "Purchase Credit Memo";
+                        Visible = true;
+                    }
+
+                }
+                group(Receivables)
+                {
+                    caption = 'Receivables';
+                    action(Customers)
+                    {
+                        ApplicationArea = all;
+                        Caption = 'Customers';
+                        RunObject = Page "Customer List";
+                        Visible = true;
+                    }
+                    action("Customer Invoices")
+                    {
+                        ApplicationArea = all;
+                        Caption = 'Customer Invoices';
+                        RunObject = Page "Sales Invoice List";
+                        Visible = true;
+                    }
+                    action("Sales Memo")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Sales Memo';
+                        RunObject = page "Sales Credit Memo";
+                        Visible = true;
+                    }
                 }
 
 
@@ -740,6 +807,13 @@ Page 56043 "Polytech Sacco Role Center"
                     ToolTip = ' All Finance Module Setups ';
                     Visible = true;
 
+                    action("Update Loan Aging")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'Loan Aging New';
+                        RunObject = report "loan aging new";
+                    }
+
                     action("Close Income Statement")
                     {
                         ApplicationArea = Basic, Suite;
@@ -847,6 +921,11 @@ Page 56043 "Polytech Sacco Role Center"
                         RunObject = page "Membership Exit List-Posted";
                         RunPageView = where(Posted = const(true));
                     }
+                    action("Deposit Refund Report")
+                    {
+                        ApplicationArea = all;
+                        RunObject = report "Deposit Refund Report";
+                    }
 
 
                 }
@@ -881,24 +960,31 @@ Page 56043 "Polytech Sacco Role Center"
                         Visible = true;
 
                     }
-                    action("Member Account Balances Report")
+                    /* action("Member Account Balances Report")
                     {
                         ApplicationArea = all;
                         RunObject = report "Member Account  balances";
                         ToolTip = 'Member Account Summary Report.';
-                    }
+                    } */
                     action(MembersavingReport)
                     {
                         ApplicationArea = all;
                         Caption = 'Member savings columnar report.';
-                        // RunObject = report "Member savings report";
+                        RunObject = report "Member savings report";
+
+                    }
+                    action(MemberWelfareReport)
+                    {
+                        ApplicationArea = all;
+                        Caption = 'Member Welfare Report.';
+                        RunObject = report "Member Welfare Contributions";
 
                     }
                     action(memberwithoutsharecapitalReport)
                     {
                         ApplicationArea = all;
                         Caption = 'Members without minimum share capital report.';
-                        // RunObject = report MemberwithoutMinshapitalreport;
+                        RunObject = report MemberwithoutMinshapitalreport;
 
                     }
 
@@ -906,32 +992,32 @@ Page 56043 "Polytech Sacco Role Center"
                     {
                         ApplicationArea = all;
                         Caption = 'Members without passports report.';
-                        // RunObject = report Memberswithoutpassportsreport;
+                        RunObject = report Memberswithoutpassportsreport;
 
                     }
                     action(MemberwithoutSignatureReport)
                     {
                         ApplicationArea = all;
                         Caption = ' Members without signature report.';
-                        // RunObject = report Memberwithoutsignaturereport;
+                        RunObject = report Memberwithoutsignaturereport;
 
                     }
                     action(MemberApplicationReport)
                     {
                         ApplicationArea = all;
                         Caption = 'Member application report';
-                        // RunObject = report MembershipApplicationReport;
+                        RunObject = report MembershipApplicationReport;
                     }
                     action(MemberswithoutLoanReport)
                     {
                         ApplicationArea = all;
                         Caption = 'Members Without Loan report';
-                        // RunObject = report MemberwithoutLoanReport;
+                        RunObject = report MemberwithoutLoanReport;
                     }
                     action(MembersReport)
                     {
                         ApplicationArea = all;
-                        Caption = 'Members report';
+                        Caption = 'Members Register';
                         RunObject = report MemberReport;
                         ToolTip = 'Members Report Contains all Members status';
                     }
@@ -949,12 +1035,12 @@ Page 56043 "Polytech Sacco Role Center"
                     {
                         ApplicationArea = All;
                         Caption = 'Benificiary Report';
-                        RunObject = report "Next of Kin Details Report";
+                        RunObject = report "nok report";//"Next of Kin Details Report"
                     }
                     action("Members Without Next of Kin")
                     {
                         ApplicationArea = All;
-                        // RunObject = report MemberWithoutNextOfKin;
+                        RunObject = report MemberWithoutNextOfKin;
                     }
                     action("Member shares Report")
                     {
@@ -971,10 +1057,10 @@ Page 56043 "Polytech Sacco Role Center"
                         ApplicationArea = all;
                         RunObject = report "Member Detailed Statement";
                     }
-                    action("Member Accounts Statement")
+                    action("Member Dividends Statement")
                     {
                         ApplicationArea = all;
-                        RunObject = report "Members Deposits Statement";// "Member Account Statement";
+                        RunObject = report "Members Dividend Statement";// "Member Account Statement";
                     }
                 }
 
@@ -987,6 +1073,17 @@ Page 56043 "Polytech Sacco Role Center"
             {
                 Caption = 'Credit Management';
                 ToolTip = 'Manage BOSA Loans Module';
+                group("Import Loans BC240")
+                {
+                    Visible = false;
+                    Caption = 'Post Existing Loans';
+                    action("Import Loans")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Import Loans Page';
+                        RunObject = page "Existing Loans";
+                    }
+                }
                 group("BOSA Loans Management")
                 {
                     Caption = 'New BOSA Loans Applications';
@@ -1055,74 +1152,103 @@ Page 56043 "Polytech Sacco Role Center"
 
 
 
-                // group("Loans' Reports")
-                // {
-                //     action("Loans Balances Report")
-                //     {
-                //         ApplicationArea = all;
-                //         RunObject = Report "Loan Balances Report";
-                //         Caption = 'Member Loans Book Report';
-                //         ToolTip = 'Member Loans Book Report';
-                //         Visible = true;
-                //     }
-                //     action("Loan Defaulter Aging")
-                //     {
-                //         ApplicationArea = all;
-                //         Caption = 'Loans Defaulter Aging-SASRA';
-                //         RunObject = report "SASRA Loans Classification";
-                //         ToolTip = 'Loan Classification Report';
-                //     }
-                //     action("Loan Collection Targets Report")
-                //     {
-                //         ApplicationArea = all;
-                //         RunObject = report "Loan Monthly Expectation";
-                //         ToolTip = 'Loan Collection Targets';
-                //         Caption = 'Loan Collection Targets';
-                //     }
+                group("Loans' Reports")
+                {
+                    action("Loan Aging 1")
+                    {
+                        ApplicationArea = all;
+                        RunObject = report "loan aging new Nav";
+                        Caption = 'Loan Aging New';
+                        ToolTip = 'Loan Aging New';
+                        Visible = true;
+                    }
+                    action("Loan Aging 2")
+                    {
+                        ApplicationArea = All;
+                        RunObject = report "Loans Defaulter Aging Nav";
+                        Caption = 'Loans Defaulter Aging Nav';
+                        ToolTip = 'Loans Defaulter Aging Nav';
+                        Visible = true;
+                    }
+                    action("Loans Balances Report")
+                    {
+                        ApplicationArea = all;
+                        RunObject = Report "Loan Balances Report";
+                        Caption = 'Member Loans Book Report';
+                        ToolTip = 'Member Loans Book Report';
+                        Visible = true;
+                    }
+                    action("Loan Defaulter Aging")
+                    {
+                        ApplicationArea = all;
+                        Caption = 'Loans Defaulter Aging-SASRA';
+                        RunObject = report "Loans Defaulter Aging";//"SASRA Loans Classification"
+                        ToolTip = 'Loan Classification Report';
+                    }
+                    action("Loan Collection Targets Report")
+                    {
+                        ApplicationArea = all;
+                        RunObject = report "Loan Monthly Expectation";
+                        ToolTip = 'Loan Collection Targets';
+                        Caption = 'Loan Collection Targets';
+                    }
 
-                //     action("Loans Guard Report")
-                //     {
-                //         ApplicationArea = all;
-                //         RunObject = report "Loan Guard Report";
-                //         ToolTip = 'Loans Guard Report';
-                //     }
-                //     action("Loan defaulter List")
-                //     {
-                //         ApplicationArea = all;
-                //         RunObject = report "Loan Defaulters List";
-                //     }
-                //     action("Loans Register")
-                //     {
-                //         ApplicationArea = all;
-                //         Caption = 'Member Loan Register';
-                //         RunObject = Report "Loans Register";
-                //         ToolTip = 'Loan Register Report';
-                //         Visible = false;
-                //     }
+                    action("Loans Guard Report")
+                    {
+                        ApplicationArea = all;
+                        RunObject = report "Loan Guard Report";
+                        ToolTip = 'Loans Guard Report';
+                    }
+                    action("Loan defaulter List")
+                    {
+                        ApplicationArea = all;
+                        RunObject = report "Loan Defaulters List";
+                    }
+                    action("Loans Register")
+                    {
+                        ApplicationArea = all;
+                        Caption = 'Member Loan Register';
+                        RunObject = Report "Loans Register";
+                        ToolTip = 'Loan Register Report';
+                        Visible = true;
+                    }
 
-                //     action("Loans Arreas Report")
-                //     {
-                //         ApplicationArea = all;
-                //         RunObject = Report "Loan Arrears Report";
-                //         ToolTip = 'Loan Arreas Report';
-                //         visible = false;
-                //     }
+                    action("Loans Arreas Report")
+                    {
+                        ApplicationArea = all;
+                        RunObject = Report "Loan Arrears1";
+                        Caption = 'Loan Arrears Report';
+                        visible = true;
+                    }
 
-                //     action("Loans Guarantor Details Report")
-                //     {
-                //         ApplicationArea = all;
-                //         RunObject = Report "Loans Guarantor Details Report";
-                //         ToolTip = 'Loans Securities Report';
-                //     }
-                //     action("Secutiy Manangement Register")
-                //     {
-                //         ApplicationArea = all;
-                //         RunObject = Report "Secutiy Manangement Register";
-                //         ToolTip = 'Loans Securities Report';
-                //         Visible = false;
-                //     }
+                    action("Loans Guarantor Details Report")
+                    {
+                        ApplicationArea = all;
+                        RunObject = Report "Loans Guarantor Details Report";
+                        ToolTip = 'Loans Securities Report';
+                    }
+                    action("Secutiy Manangement Register")
+                    {
+                        ApplicationArea = all;
+                        RunObject = Report "Secutiy Manangement Register";
+                        ToolTip = 'Loans Securities Report';
+                        Caption = 'Securities Report';
+                        Visible = true;
+                    }
+                    action("Monthly Exp Report")
+                    {
+                        ApplicationArea = all;
+                        RunObject = report "monthly exp polytech";
+                        Caption = 'Monthly Expectation Checkoff';
+                    }
+                    action(CheckoffByCustomerBank)
+                    {
+                        ApplicationArea = all;
+                        RunObject = report CheckoffByCustomerBank;
+                        Caption = 'CheckOff Bank Grouping';
+                    }
 
-                // }
+                }
 
                 action("PostedLoans")
                 {
@@ -1140,6 +1266,11 @@ Page 56043 "Polytech Sacco Role Center"
                 action("Loan Calculator")
                 {
                     RunObject = page "Loans Calculator List";
+                }
+                group("Run Commands")
+                {
+                    action("Loan Aging Code Unit") { RunObject = codeunit "Loan Aging Code Unit"; }
+                    action("Loans Defaulter Aging Codeunit") { RunObject = codeunit "Loans Defaulter Aging Codeunit"; }
                 }
             }
 
@@ -1185,16 +1316,16 @@ Page 56043 "Polytech Sacco Role Center"
                 //...........................START OF TRANSFERS MENU .........................................
                 group(Transfers)
                 {
-                    Caption = 'BOSA Transfers';
-                    action(TransfersList)
-                    {
-                        ApplicationArea = basic, suite;
-                        Caption = 'Transfers List';
-                        Image = Customer;
-                        RunObject = page "BOSA Transfer List";
-                        ToolTip = 'Make member receiptings for payments done by member';
-
-                    }
+                    Caption = 'Sacco Transfers';
+                    // action(TransfersList)
+                    // {
+                    //     ApplicationArea = basic, suite;
+                    //     Caption = 'Transfers List';
+                    //     Image = Customer;
+                    //     RunObject = page "BOSA Transfer List";
+                    //     ToolTip = 'Make member receiptings for payments done by member';
+                    //     Visible = false;
+                    // }
 
                     // action(ApprovedTransfers)
                     // {
@@ -1206,15 +1337,34 @@ Page 56043 "Polytech Sacco Role Center"
                     //     RunPageView = where(Posted = const(false), approved = const(true));
 
                     // }
+
+                    action(SaccoTransfersList)
+                    {
+                        ApplicationArea = basic, suite;
+                        Caption = 'Sacco Transfers List';
+                        Image = Customer;
+                        RunObject = page "Sacco Transfer List";
+                        RunPageView = where(Posted = const(false));
+                    }
                     action(PostedTransfers)
                     {
                         ApplicationArea = basic, suite;
                         Caption = 'Posted Transfer List';
                         Image = Customer;
-                        RunObject = page "BOSA Transfer Posted";
+                        RunObject = page "Sacco Transfer List";
                         ToolTip = 'BOSA Transfer Posted';
                         RunPageView = where(Posted = const(true));
+                        // Visible = false;
 
+                    }
+                    action(InternalTransferPosted)
+                    {
+                        ApplicationArea = basic, suite;
+                        Caption = 'Internal Transfer Posted';
+                        Image = PostedPayment;
+                        RunObject = page "Posted Internal Transfers";
+                        ToolTip = 'Posted member transfers payments done by member';
+                        Visible = true;
                     }
                 }
                 //......................................................................................
@@ -1307,18 +1457,21 @@ Page 56043 "Polytech Sacco Role Center"
                     action("Member Loans Guaranteed")
                     {
                         ApplicationArea = Basic, Suite;
-                        // RunObject = Page "Loans Guarantee Details";
-                        RunObject = report "Loans Guaranteed";
+                        RunObject = report "Loans Guaranteed Report";
+
                     }
 
                     action("Members Loan  Guarantors")
                     {
                         ApplicationArea = Basic, Suite;
-                        // RunObject = Page "Loans Guarantee Details";
-                        // RunObject = report "Loan Guarantors";
+                        RunObject = report "Members Loans Guarantors";
+
                     }
-
-
+                    action("Update Loan  Guarantors")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        RunObject = codeunit "Guarantor Management";
+                    }
 
                 }
 
@@ -1333,13 +1486,20 @@ Page 56043 "Polytech Sacco Role Center"
                     group(loanRecovery)
                     {
                         Caption = 'Loan Recovery';
+                        //Guarantor Revocery List && & Loan Recoveries List
+                        action(GuaraRecovList)
+                        {
+                            Caption = 'Guarantor Recovery List';
+                            RunObject = page "Guarantors Recovery List";
+                        }
+                        //choose which serves both purposes
                         action(LoanRecovList)
                         {
                             Caption = 'Open Loan Recovery List';
                             RunObject = page "Loan Recovery List";
                             RunPageView = WHERE(Status = CONST(open));
-
                         }
+
                         action(PLoanRecovList)
                         {
                             Caption = 'Pending Approval Loan Recovery List';
@@ -1368,40 +1528,74 @@ Page 56043 "Polytech Sacco Role Center"
 
                     group(demandnotices)
                     {
-
-                        group(DemandReports)
+                        group(DemandNoticesLists)
                         {
-                            action(Ldemandnotice1)
+                            action("Loan 1st Demand Notice List")
                             {
-                                Caption = 'Loan Defaulter 1st Notice';
-                                RunObject = report "Loan Defaulter 1st Notice";
-                                Image = Report;
+                                ApplicationArea = Basic, Suite;
+                                RunObject = Page "Loan 1st Demand Notices List";
+                            }
+                            action("Loan 2st Demand Notice List")
+                            {
+                                ApplicationArea = Basic, Suite;
+                                RunObject = Page "Loan 2nd Demand Notices List";
+                            }
+                            action("Loan 3rd Demand Notice List")
+                            {
+                                ApplicationArea = Basic, Suite;
+                                RunObject = Page "Loan 3rd Demand Notices List";
+                            }
+                            // action("Recovery Letter")
+                            // {
+                            //     ApplicationArea = Basic, Suite;
+                            //     RunObject = report "Recovery Letter";
+                            // }
+                            // 
+                            action("Loan Demand Notice List(Recovery)")
+                            {
+                                ApplicationArea = Basic, Suite;
+                                RunObject = Page "Loan 4TH Demand Notices List";
+                            }
+                            // action("Loan CRB Notices List")
+                            // {
+                            //     ApplicationArea = "Basic", Suite;
+                            //     RunObject = Page "Loan CRB Notices List";
+                            // }
 
-                            }
-                            action(Ldemandnotice2)
-                            {
-                                Caption = 'Loan Defaulter 2nd Notice';
-                                RunObject = report "Loan Defaulter 2nd Notice";
-                                Image = Report;
-                            }
-                            action(Ldemandnotice3)
-                            {
-                                Caption = 'Loan Defaulter 3rd Notice';
-                                RunObject = report "Loan Defaulter Final Notice";
-                                Image = Report;
-                            }
+
                         }
                     }
 
+                    /* group(GuarantorRecovery)
+                    {
+                        action(GuaraRecovList)
+                        {
+                            Caption = 'Guarantor Recovery List';
+                            RunObject = page "Guarantors Recovery List";
+                        }
+                    } */
                 }
 
 
                 //.......................................End of Defaulter Management .................................
+                group("Holiday Savings")
+                {
+                    action("Process Holiday savings")
+                    {
+                        ApplicationArea = Basic, Suite;
+                        RunObject = report "Process Holiday Savings";
+                    }
+                    action(HolidaySavingsList)
+                    {
+                        Caption = 'Holiday Savings List';
+                        RunObject = page "Member Holiday Savings List";
+                    }
+                }
 
 
 
                 //...............................................Start of BOSA Reports.........................
-                group("BOSA Reports")
+                /*group("BOSA Reports")
                 {
                     action("New Members Report")
                     {
@@ -1435,6 +1629,7 @@ Page 56043 "Polytech Sacco Role Center"
                     }
                 }
                 //.....................................End Of BOSA
+                */
 
 
                 //..............................................................................................
@@ -1442,73 +1637,40 @@ Page 56043 "Polytech Sacco Role Center"
                 group(BOSAPeriodicActivities)
                 {
                     Caption = 'Periodic Activities';
-
-                    group(LoanDefaulter)
+                    group(CheckOffBlockedPoly)
                     {
-                        Caption = 'Loan Defaulter Notices';
-                        action(LoanDefaulter1st)
+                        Caption = 'Checkoff Processing';
+                        action("Checkoff Processing List Blocked Poly")
                         {
-                            Caption = 'Loan Defaulter 1st Notice';
+                            Caption = 'Polytech Employer Remittance';
                             Image = Setup;
-                            RunObject = report "Loan Defaulter 1st Notice";
+                            RunObject = page "Polytech Checkoff Receipts";
+                            // Visible = false;
                         }
-                        action(LoanDefaulter2nd)
-                        {
-                            Caption = 'loan Defaulter 2nd Notice';
-                            Image = Setup;
-                            RunObject = report "Loan Defaulter 2nd Notice";
-                        }
-                        action("Loan Defaulter Final Notice")
-                        {
-
-                            Image = Setup;
-                            RunObject = report "Loan Defaulter Final Notice";
-                        }
-
-                    }
-                    group(CheckOffDistributed)
-                    {
-                        Caption = 'Checkoff Processing-Distributed';
-                        Visible = false;
-                        action("Checkoff Processing List")
-                        {
-                            Caption = 'Checkoff Processing List';
-                            Image = Setup;
-                            RunObject = page "Checkoff Processing-D List";
-                        }
-                        action(CheckoffProcessingDistributed)
-                        {
-                            Caption = 'Checkoff Processing-Distributed';
-                            Image = Setup;
-                            RunObject = page "Transfer Schedule";
-                        }
-                    }
-                    group(CheckOffBlocked)
-                    {
-                        Caption = 'Checkoff Processing-Blocked';
-                        action("Checkoff Processing List Blocked")
-                        {
-                            Caption = 'Employer Checkoff Remittance';
-                            Image = Setup;
-                            RunObject = page "Bosa Receipts H List-Checkoff";
-                        }
-                        action("Posted Employer Checkoff Remittance")
+                        action("Posted Employer Checkoff Remittance Poly")
                         {
                             Caption = 'Posted Employer Checkoff Remittance';
                             Image = Setup;
                             RunObject = page "Posted Bosa Rcpt List-Checkof";
+                            // Visible = false;
                         }
-                        action("Import Sacco Jnl")
+                        action("Nav Checkoff")
                         {
-                            Caption = 'Import Sacco Jnl';
+                            Caption = 'Check Off List';
                             Image = Setup;
-                            RunObject = xmlport "Import Sacco Jnl";
-                            visible = false;
+                            RunObject = page "Checkoff Process-D List Nav";
                         }
                     }
+
                     group(CheckOffAdvice)
                     {
                         Caption = 'Check-Off Advice';
+                        action("Monthly Exp Report Main")
+                        {
+                            ApplicationArea = all;
+                            RunObject = report "monthly exp polytech";
+                            Caption = 'Monthly Expectation Checkoff';
+                        }
                         action("Check off Adivice-Breakdown")
                         {
                             Image = Setup;
@@ -1518,6 +1680,12 @@ Page 56043 "Polytech Sacco Role Center"
                         {
                             Image = Setup;
                             RunObject = report "Check Off Advice-Lumpsum";
+                        }
+
+                        action("Checkoff Expectation By Bank")
+                        {
+                            Image = Setup;
+                            RunObject = report CheckoffByCustomerBank;
                         }
 
                     }
@@ -1530,6 +1698,18 @@ Page 56043 "Polytech Sacco Role Center"
                             Image = Setup;
                             RunObject = report "Post Monthly Interest.";
                             ToolTip = 'Used to process Loans Monthly Interest';
+                        }
+                        action(process)
+                        {
+                            Caption = 'Process Loan Interest Nav';
+                            Image = Process;
+                            RunObject = report "Process Loan Monthly Interest";
+                        }
+                        action("Loan Interest List")
+                        {
+                            Caption = 'Loan Interest List';
+                            Image = Setup;
+                            RunObject = page "Loan Interest List";
                         }
                     }
                     group(Dividends)
@@ -1563,6 +1743,17 @@ Page 56043 "Polytech Sacco Role Center"
                                 ApplicationArea = all;
                                 RunObject = Report "Dividends Payments";
 
+                            }
+                            action("Process Dividends 2")
+                            {
+                                ApplicationArea = all;
+                                RunObject = Report "Process Dividends for member";
+                            }
+                            action("Dividends To Loan Arrears")
+                            {
+                                //Caption = 'Dividends Processing-Prorated';
+                                Image = Setup;
+                                RunObject = report "Dividend Transfer To ArreaLoan";
                             }
                         }
                         group("Share capital Manangement")
@@ -1601,7 +1792,6 @@ Page 56043 "Polytech Sacco Role Center"
 
 
             //....................... START OF ALTERNATIVE CHANNELS MAIN MENU ...................................
-
             group(SwizzKash)
             {
                 Caption = 'Alternative Channels';
@@ -1658,7 +1848,8 @@ Page 56043 "Polytech Sacco Role Center"
                     {
                         Caption = 'Mobile Loans';
                         Image = PostedReceipt;
-                        RunObject = page "Mobile Loans";
+                        // RunObject = page "Mobile Loans";
+                        RunObject = page "M Polytech Loans";
                         ToolTip = 'View Mobile Loans List.';
                     }
 
@@ -1684,9 +1875,6 @@ Page 56043 "Polytech Sacco Role Center"
                     }
 
                 }
-
-
-
                 group("SMS Messages")
                 {
                     Caption = 'SMS Messages';
@@ -1711,8 +1899,36 @@ Page 56043 "Polytech Sacco Role Center"
 
 
                 }
-                group("Alternative Channels Setups")
+                group("Portal Activities")
+                {
+                    Caption = 'Online Banking';
+                    action("PortalApplications")
+                    {
+                        Caption = 'Online Portal Users';
+                        Image = Calls;
+                        RunObject = page "Online Portal Users";
+                    }
+                    action("Portal Audit Trail")
+                    {
+                        Caption = 'Portal Audit Trail';
+                        Image = PostedReceipt;
+                        RunObject = page "Portal Audit Trail";
+                    }
+                    action("Portal Feedback")
+                    {
+                        Caption = 'Portal Feedback';
+                        Image = PostedReceipt;
+                        RunObject = page "Portal Feedback";
+                    }
+                    action("Online Loans")
+                    {
+                        Caption = 'Online Loan Applications';
+                        Image = PostedMemo;
+                        RunObject = page "Online Loan Applications";
+                    }
 
+                }
+                group("Alternative Channels Setups")
                 {
                     Caption = 'Alternative Channels Setup';
 
@@ -1739,16 +1955,32 @@ Page 56043 "Polytech Sacco Role Center"
                         Image = PostedReceipt;
                         RunObject = page "Bulk SMS Header List";
                         ToolTip = 'Sent SMS.';
-
+                    }
+                    action("Mobile Loans Transactions")
+                    {
+                        Caption = 'Mobile Loans Transactions';
+                        Image = PaymentHistory;
+                        RunObject = page "Mobile Loans Transactions";
+                        ToolTip = 'Get the History of M-Polytech Loans';
+                    }
+                    action("Wallets Setup")
+                    {
+                        Caption = 'Create M-Wallets';
+                        Image = CreateDocuments;
+                        RunObject = codeunit SwizzKashMobile;
+                        ToolTip = 'Create Wallet Accounts';
+                    }
+                    action(Portal)
+                    {
+                        Caption = 'Debug Portal';
+                        RunObject = codeunit PORTALIntegration;
+                        Image = RollUpCosts;
                     }
                 }
 
             }
 
             //.............................. END OF ALTERNATIVE CHANNELS MAIN MENU ..................................
-
-
-
             group("Payment Management")
             {
                 Caption = 'Payment Process';
@@ -1860,147 +2092,6 @@ Page 56043 "Polytech Sacco Role Center"
             }
 
 
-            //......................... START OF CRM Main MENU ...............................................
-            // group(SaccoCRM)
-            // {
-            //     Caption = 'CRM';
-            //     Visible = true;
-
-            //     action("CRM Member List")
-            //     {
-            //         Caption = 'CRM Member List';
-            //         ApplicationArea = basic, suite;
-            //         Image = ProdBOMMatrixPerVersion;
-            //         RunObject = page "CRM Member List";
-
-            //     }
-            //     group("Case Management")
-            //     {
-            //         action("Case Registration")
-            //         {
-            //             Caption = 'Lead Management';
-            //             ApplicationArea = basic, suite;
-            //             Image = Capacity;
-            //             RunObject = page "Lead list";
-            //             RunPageView = WHERE(status = CONST(New));
-            //             ToolTip = 'Create a New Case enquiry';
-
-            //         }
-            //         action("Assigned Cases")
-            //         {
-            //             Caption = 'Assigned Cases';
-            //             ApplicationArea = basic, suite;
-            //             Image = Open;
-            //             RunObject = page "Lead list Escalated";
-            //             RunPageView = WHERE(status = CONST(Escalted));
-            //             ToolTip = 'Open List Of Cases open & Assigned To Me';
-            //         }
-            //         action("Resolved Case Enquiries")
-            //         {
-            //             Caption = 'Resolved Cases Enquiries';
-            //             ApplicationArea = basic, suite;
-            //             Image = Capacity;
-            //             RunObject = page "Lead list Closed";
-            //             RunPageView = WHERE(status = CONST(Resolved));
-            //             ToolTip = 'Resolved Cases Enquiries';
-
-            //         }
-            //         action("Unreolved Case Enquiries")
-            //         {
-            //             Caption = 'Unresolved Case Enquiries';
-            //             ApplicationArea = basic, suite;
-            //             Image = Capacity;
-            //             RunObject = page "Lead list Closed";
-            //             RunPageView = WHERE("Lead Status" = CONST(open));
-            //             ToolTip = 'Unresolved Cases Enquiries';
-            //         }
-            //         action("Member FeedBack")
-            //         {
-            //             Caption = 'Member FeedBacks';
-            //             ApplicationArea = basic, suite;
-            //             Image = Capacity;
-            //             RunObject = page "Member FeedBack List";
-            //         }
-            //         group("CRM Reports")
-            //         {
-            //             action("Resolved Cases")
-            //             {
-            //                 Caption = 'Resolved Cases';
-            //                 ApplicationArea = basic, suite;
-            //                 Image = Report;
-            //                 RunObject = report "CRM Resolved Cases Report";
-            //                 ToolTip = 'Resolved Cases';
-            //             }
-            //             action("UnResolved Cases")
-            //             {
-            //                 Caption = 'UnResolved Cases';
-            //                 ApplicationArea = basic, suite;
-            //                 Image = Report;
-            //                 RunObject = report "CRM UnResolved Cases Report";
-            //                 ToolTip = 'UnResolved Cases';
-            //             }
-            //             action("customer Feed Back Report")
-            //             {
-            //                 Caption = 'Customer Feed Back Report';
-            //                 ApplicationArea = basic, suite;
-            //                 Image = Report;
-            //                 RunObject = report MemberFeedBackReport;
-            //             }
-            //             action("Complaints Report")
-            //             {
-
-            //                 ApplicationArea = basic, suite;
-            //                 Image = Report;
-            //                 RunObject = report MemberComplaintsReport;
-            //             }
-            //             action("Member Feedback and Satisfaction Report")
-            //             {
-            //                 Caption = 'Member Feedback and Satisfaction Report';
-            //                 ApplicationArea = basic, suite;
-            //                 Image = Report;
-            //                 RunObject = report MemberFeedBackReport;
-            //             }
-            //             action(MemberSuggestionsReport)
-            //             {
-            //                 Caption = 'Member Suggestions Report';
-            //                 ApplicationArea = all;
-            //                 Image = Report;
-            //                 RunObject = report MemberSugestionReport;
-            //             }
-            //             action(MemberResolutionTimeTaken)
-            //             {
-            //                 Caption = 'Members’ resolution time taken report';
-            //                 ApplicationArea = all;
-            //                 RunObject = report MemberResolutionTimeTaken;
-            //             }
-
-            //         }
-
-            //     }
-            //     group("CRM Gen Setup")
-            //     {
-            //         action("CRM General setup")
-            //         {
-            //             Caption = 'CRM General Setup';
-            //             ApplicationArea = basic, suite;
-            //             Image = Capacity;
-            //             RunObject = page "CRM General SetUp";
-            //             ToolTip = 'CRM Setup';
-
-            //         }
-            //         action("CRM CaseS types")
-            //         {
-            //             Caption = 'CRM Case types';
-            //             ApplicationArea = basic, suite;
-            //             Image = Capacity;
-            //             RunObject = page "CRM Case Types";
-            //             ToolTip = 'CRM Case Types';
-            //             Visible = false;
-
-            //         }
-            //     }
-
-            // }
 
             //........................... End of CRM MAIN MENU ...............................................
             group(Action16)
@@ -2079,7 +2170,7 @@ Page 56043 "Polytech Sacco Role Center"
             }
             group("Human Resources")
             {
-                Visible = false;
+                // Visible = false;
                 group("Employee Management")
                 {
                     action("EmployeesList")
@@ -2218,42 +2309,75 @@ Page 56043 "Polytech Sacco Role Center"
 
             group("Swizz Payroll Management")
             {
-                group("Payroll Employees.")
+                group("Payroll Employees")
                 {
-                    action("Payroll Employee List.")
+                    action("Payroll Employee List")
                     {
                         RunObject = page "Payroll Employee List.";
                         ApplicationArea = All;
 
                     }
-                    action("Payroll Earnings List")
+                    action("Payroll Earnings List.")
                     {
                         RunObject = page "Payroll Earnings List.";
                         ApplicationArea = All;
 
                     }
+                    action("Payroll Deductions List.")
+                    {
+                        RunObject = page "Payroll Deductions List.";
+                        ApplicationArea = All;
+                        Visible = false;
+
+                    }
+                    action("Payroll Employee Earnings.")
+                    {
+                        RunObject = page "Payroll Employee Earnings.";
+                        ApplicationArea = All;
+                        Visible = false;
+
+                    }
+                    action("Payroll Employee Deductions.")
+                    {
+                        RunObject = page "Payroll Employee Deductions.";
+                        ApplicationArea = All;
+                        Visible = false;
+
+                    }
 
                 }
-                group("Payrolll Periodic Activities.")
+                group("Payroll Periodic Activities")
                 {
-                    action("Payroll Periods.")
+                    action("Payroll Employee Transactions")
+                    {
+                        RunObject = page "Payroll Employee Transactions";
+                        ApplicationArea = All;
+                    }
+                    action("Payroll Periods")
                     {
                         RunObject = page "Payroll Periods.";
                         ApplicationArea = All;
 
                     }
-                    action("Transfer Payroll to journal.")
+                    action("Transfer Payroll to journal")
                     {
                         RunObject = report "Payroll JournalTransfer.";
                         ApplicationArea = All;
 
                     }
+                    action("General Journal")
+                    {
+                        RunObject = page "General Journal";
+                        ApplicationArea = All;
+                        Visible = false;
+
+                    }
 
                 }
-                group(Reports)
+                group(Reports1)
                 {
                     Caption = 'Reports';
-                    action("Payroll Employees Report.")
+                    action("Payroll Employees Report")
                     {
                         RunObject = report "Payroll Employees Report.";
                         ApplicationArea = All;
@@ -2268,33 +2392,33 @@ Page 56043 "Polytech Sacco Role Center"
                     //     RunObject = report "payroll Deductions Report.";
                     //     ApplicationArea = All;
                     // }
-                    action("NHIF Report.")
+                    action("NHIF Report")
                     {
                         RunObject = report "NHIF Schedule W..";
 
                         ApplicationArea = all;
                     }
-                    action("NSSF Report.")
+                    action("NSSF Report")
                     {
                         RunObject = report "NSSF Schedule W..";
                         ApplicationArea = all;
                     }
-                    action("Payroll Summary.")
+                    action("Payroll Summary")
                     {
                         RunObject = report "Payroll Summary";
                         ApplicationArea = All;
                     }
-                    action("Payroll Payee.")
+                    action("Payroll Payee")
                     {
                         RunObject = report "PAYE Schedule";
                         ApplicationArea = All;
                     }
-                    action("P9 Report.")
+                    action("P9 Report")
                     {
                         RunObject = report "P9 Report";
                         ApplicationArea = All;
                     }
-                    action("Staff Salaries Report.")
+                    action("Staff Salaries Report")
                     {
                         RunObject = report "Staff Salaries Report";
                         Caption = 'Staff Loan Report';
@@ -2303,7 +2427,7 @@ Page 56043 "Polytech Sacco Role Center"
 
 
                 }
-                group(Setup)
+                group(Setup1)
                 {
                     Caption = 'Payroll Setup';
                     action("Payroll PAYE Setup")
@@ -2339,6 +2463,11 @@ Page 56043 "Polytech Sacco Role Center"
                     action("Payroll Period Transactions")
                     {
                         RunObject = page "Payroll Period Transaction.";
+                        ApplicationArea = All;
+                    }
+                    action("Payroll Transaction Codes")
+                    {
+                        RunObject = page "Payroll Transaction Codes";
                         ApplicationArea = All;
                     }
                     action("Payroll General Setup LIST")
@@ -2398,6 +2527,11 @@ Page 56043 "Polytech Sacco Role Center"
                     Image = Setup;
                     RunObject = page "Payment Types List";
                     ToolTip = 'Payment Types Setup';
+                }
+                action("Tax codes")
+                {
+                    RunObject = page "Funds Tax Codes";
+                    ApplicationArea = all;
                 }
 
                 group("Sacco Workflow Mgmt")
@@ -2471,7 +2605,7 @@ Page 56043 "Polytech Sacco Role Center"
                     }
                     action("User Permisionss")
                     {
-                        Caption = 'cheque Festus trunc';
+                        Caption = 'Cheque Truncation';
                         ApplicationArea = Basic, Suite;
                         RunObject = page "Cheque Truncation details buff";
                     }
@@ -2502,7 +2636,7 @@ Page 56043 "Polytech Sacco Role Center"
 
                     action("Supervisor Approval Levels")
                     {
-                        Caption = 'User Workflow Setup';
+                        Caption = 'SuperUser Approvals Setup';
                         ApplicationArea = Basic, Suite;
                         Image = Check;
                         RunObject = page "Supervisor Approvals Levels";
