@@ -105,6 +105,7 @@ table 50518 "Member Reapplication"
             NoSeriesMgt.InitSeries(SalesSetup."Member Re-Application No.s", xRec."No. Series", 0D, "No.", "No. Series");
         end;
         "Re-Application On" := Today;
+        Status := Status::Open;
         "Re-Application By" := UpperCase(UserId);
     end;
 
@@ -112,5 +113,7 @@ table 50518 "Member Reapplication"
         cust: Record Customer;
         SalesSetup: Record "Sacco No. Series";
         NoSeriesMgt: Codeunit NoSeriesManagement;
+
+
 
 }

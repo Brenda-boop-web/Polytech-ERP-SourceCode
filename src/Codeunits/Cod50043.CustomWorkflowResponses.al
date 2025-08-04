@@ -284,6 +284,7 @@ codeunit 50043 "Custom Workflow Responses"
         LoanBatchDisbursements: Record "Loan Disburesment-Batching";
         ChangeRequest: Record "Change Request";
         LeaveApplication: Record "HR Leave Application";
+        MemberReapplication: Record "Member Reapplication";
         GuarantorSubstitution: Record "Guarantorship Substitution H";
         PettyCashReimbersement: Record "Funds Transfer Header";
         NewFOSAAccountApplication: RECORD "Product Applications Details";
@@ -353,6 +354,16 @@ codeunit 50043 "Custom Workflow Responses"
                     MembershipApplication."Membership Application Status" := MembershipApplication."Membership Application Status"::Pending;
                     MembershipApplication.Modify(true);
                     Variant := MembershipApplication;
+                end;
+            //Member Reapplication
+            Database::"Member Reapplication":
+                begin
+                    RecRef.SetTable(MemberReapplication);
+                    MemberReapplication.Validate(Status, MemberReapplication.Status::Pending);
+                    // MemberReapplication."Sent for Approval By" := UserId;
+                    MemberReapplication.Status := MemberReapplication.Status::Pending;
+                    MemberReapplication.Modify(true);
+                    Variant := MemberReapplication;
                 end;
             //New FOSA Product Application
             Database::"Product Applications Details":

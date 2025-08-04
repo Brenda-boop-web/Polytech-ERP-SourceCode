@@ -220,11 +220,9 @@ Page 50145 "Member Re-Application Page"
                         if Confirm('Proceed with Member Reapplication Process ?', false) = false then begin
                             exit;
                         end else begin
-                            // 1. Ensure the status is not Approved
-                            Rec.TestField(Status, Rec.Status::Approved); // This throws an error if not Approved, so we invert the logic below
 
                             if Rec.Status <> Rec.Status::Approved then
-                                Error('The loan must be approved before reapplying.');
+                                Error('The Member Reapplication must be approved before reactivating the member.');
                             //....................Ensure that If Batch doesnt exist then create
                             IF NOT GenBatch.GET(TemplateName, BatchName) THEN BEGIN
                                 GenBatch.INIT;
@@ -370,8 +368,14 @@ Page 50145 "Member Re-Application Page"
             if Rec.Status = Rec.Status::Approved then begin
                 RecordApproved := true;
                 CanCancelApprovalForRecord := false;
+
+
+                // commit();
+
+                //  Close the current page automatically
+                // CurrPage.Close();
+
             end;
     end;
-
 
 }
