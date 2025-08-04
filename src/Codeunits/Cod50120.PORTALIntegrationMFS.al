@@ -2681,6 +2681,7 @@ Codeunit 50120 "PORTALIntegration MFS"
         TotalLoanDeductions: Decimal;
         MonthlyContribution: Decimal;
         MinShareCapital: Decimal;
+        //wellfare
         ShareCapital: Decimal;
         IndividualLoanAmount: Decimal;
         MemberFound: Boolean;

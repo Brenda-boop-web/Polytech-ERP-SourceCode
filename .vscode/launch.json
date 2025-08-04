@@ -17,7 +17,7 @@
             "enableLongRunningSqlStatements": true,
             "enableSqlInformationDebugger": false,
             "tenant": "default",
-            "schemaUpdateMode": "Synchronize",
+            "schemaUpdateMode": "ForceSync",
             "usePublicURLFromServer": true
         } //,
         // {

@@ -221,41 +221,45 @@ Page 50001 "Payment Card"
             }
             action("Send Approval Request")
             {
-                Image = SendApprovalRequest;
                 ApplicationArea = Basic;
+                Caption = 'Send Approval Request';
+                Image = SendApprovalRequest;
                 Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
+                PromotedCategory = process;
 
                 trigger OnAction()
+                var
+                    Approvals: Codeunit SwizzsoftApprovalsCodeUnit;
                 begin
-                    if Confirm('Send  Approval request?', false) = false then begin
+                    if Confirm('Send Approval Request ?', false) = false then begin
                         exit;
                     end else begin
-                        rec.Status := rec.Status::Approved;
-                        rec.Modify();
-                        // SrestepApprovalsCodeUnit.SendPaymentVoucherTransactionsRequestForApproval(rec."No.", Rec);
+                        Approvals.SendPaymentHeaderForApprovalCode(rec."No.", Rec);
+                        CurrPage.Close();
                     end;
                 end;
             }
             action("Cancel Approval Request")
             {
                 ApplicationArea = Basic;
+                Image = Cancel;
                 Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
-                Image = CancelApprovalRequest;
+                PromotedCategory = process;
 
                 trigger OnAction()
+                var
+                    Approvals: Codeunit SwizzsoftApprovalsCodeUnit;
                 begin
-                    if Confirm('Cancel Approval request?', false) = false then begin
-                        exit;
-                    end else begin
-                        rec.Status := rec.Status::New;
-                        rec.Modify();
-                        Message('Success');
-                        // SrestepApprovalsCodeUnit.CancelPaymentVoucherTransactionsRequestForApproval(rec."No.", Rec);
-                    end;
+                    if (rec.Status <> Rec.Status::New) then begin
+                        Message('Only Vouchers with Status Open Can be Submitted for Approval');
+                    end
+                    else
+                        if Confirm('Cancel Approval Request ?', false) = false then begin
+                            exit;
+                        end else begin
+                            Approvals.CancelPaymentHeaderApprovalCode(rec."No.", Rec);
+                            CurrPage.Close();
+                        end;
                 end;
             }
 

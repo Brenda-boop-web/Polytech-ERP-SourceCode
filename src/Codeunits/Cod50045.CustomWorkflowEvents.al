@@ -90,10 +90,10 @@ codeunit 50045 "Custom Workflow Events"
                                     Database::"Guarantorship Substitution H", 'An Approval request for Guarantor Substitution is canceled.', 0, false);
 
         //Payment Voucher
-        WFHandler.AddEventToLibrary(RunWorkflowOnSendPaymentVoucherForApprovalCode,
-                            Database::"Payments Header", 'Approval of Payment Voucher is Requested.', 0, false);
-        WFHandler.AddEventToLibrary(RunWorkflowOnCancelPaymentVoucherApprovalRequestCode,
-                                    Database::"Payments Header", 'An Approval request for  Payment Voucher is canceled.', 0, false);
+        // WFHandler.AddEventToLibrary(RunWorkflowOnSendPaymentVoucherForApprovalCode,
+        //                     Database::"Payments Header", 'Approval of Payment Voucher is Requested.', 0, false);
+        // WFHandler.AddEventToLibrary(RunWorkflowOnCancelPaymentVoucherApprovalRequestCode,
+        //                             Database::"Payments Header", 'An Approval request for  Payment Voucher is canceled.', 0, false);
         //Petty Cash Reimbursement
         WFHandler.AddEventToLibrary(RunWorkflowOnSendPettyCashReimbersementForApprovalCode,
                             Database::"Funds Transfer Header", 'Approval of PettyCash Reimbursment is Requested.', 0, false);
@@ -121,6 +121,10 @@ codeunit 50045 "Custom Workflow Events"
         WFHandler.AddEventToLibrary(RunWorkflowOnCancelInternalTransfersTransactionsApprovalRequestCode,
                                     Database::"Sacco Transfers", 'An Approval request for  Sacco Transfers is canceled.', 0, false);
         //-------------------------------------------End Approval Events-------------------------------------------------------------
+
+        //------------------PAYMENT HEADER APPROVAL WORKFLOW-----------------------------------------//
+        WFHandler.AddEventToLibrary(RunWorkflowOnSendPaymentHeaderForApprovalCode, Database::"Payments Header", 'Approval of Payment Header is Submitted', 0, false);
+        WFHandler.AddEventToLibrary(RunWorkflowOnCancelPaymentHeaderApprovalCode, Database::"Payments Header", 'Payment Headers Approval is cancelled', 0, false);
 
         //-------------------------------------------End Approval Events-------------------------------------------------------------
     end;
@@ -328,7 +332,6 @@ codeunit 50045 "Custom Workflow Events"
         exit(UpperCase('RunWorkflowOnSendBOSATransForApproval'));
     end;
 
-
     procedure RunWorkflowOnCancelBOSATransApprovalRequestCode(): Code[128]
     begin
         exit(UpperCase('RunWorkflowOnCancelBOSATransApprovalRequest'));
@@ -431,32 +434,16 @@ codeunit 50045 "Custom Workflow Events"
         exit(UpperCase('RunWorkflowOnSendLeaveApplicationForApproval'));
     end;
 
-
     procedure RunWorkflowOnCancelLeaveApplicationApprovalRequestCode(): Code[128]
     begin
         exit(UpperCase('RunWorkflowOnCancelLeaveApplicationApprovalRequest'));
     end;
 
-    // [EventSubscriber(ObjectType::Codeunit, Codeunit::SurestepApprovalsCodeUnit, 'FnOnSendLeaveApplicationForApproval', '', false, false)]
-
-    // procedure RunWorkflowOnSendLeaveApplicationForApproval(var LeaveApplication: Record "HR Leave Application")
-    // begin
-    //     WorkflowManagement.HandleEvent(RunWorkflowOnSendLeaveApplicationForApprovalCode, LeaveApplication);
-    // end;
-
-    // [EventSubscriber(ObjectType::Codeunit, Codeunit::SurestepApprovalsCodeUnit, 'FnOnCancelLeaveApplicationApprovalRequest', '', false, false)]
-
-    // procedure RunWorkflowOnCancelLeaveApplicationApprovalRequest(var LeaveApplication: Record "HR Leave Application")
-    // begin
-    //     WorkflowManagement.HandleEvent(RunWorkflowOnCancelLeaveApplicationApprovalRequestCode, LeaveApplication);
-    // end;
-    //...................................................................................................
     //8)Guarantor Substitution
     procedure RunWorkflowOnSendGuarantorSubForApprovalCode(): Code[128]//
     begin
         exit(UpperCase('RunWorkflowOnSendGuarantorSubForApproval'));
     end;
-
 
     procedure RunWorkflowOnCancelGuarantorSubApprovalRequestCode(): Code[128]
     begin
@@ -483,7 +470,6 @@ codeunit 50045 "Custom Workflow Events"
         exit(UpperCase('RunWorkflowOnSendPaymentVoucherForApproval'));
     end;
 
-
     procedure RunWorkflowOnCancelPaymentVoucherApprovalRequestCode(): Code[128]
     begin
         exit(UpperCase('RunWorkflowOnCancelPaymentVoucherApprovalRequest'));
@@ -503,7 +489,7 @@ codeunit 50045 "Custom Workflow Events"
         WorkflowManagement.HandleEvent(RunWorkflowOnCancelPaymentVoucherApprovalRequestCode, PaymentVoucher);
     end;
     //---------------------------------------------------------------------------------
-    //9)Payment Voucher
+    //9)PettyCash Voucher
     procedure RunWorkflowOnSendPettyCashReimbersementForApprovalCode(): Code[128]//
     begin
         exit(UpperCase('RunWorkflowOnSendPettyCashReimbersementForApproval'));
@@ -667,7 +653,6 @@ codeunit 50045 "Custom Workflow Events"
         exit(UpperCase('RunWorkflowOnSendInternalTransfersTransactionsForApproval'));
     end;
 
-
     procedure RunWorkflowOnCancelInternalTransfersTransactionsApprovalRequestCode(): Code[128]
     begin
         exit(UpperCase('RunWorkflowOnCancelInternalTransfersTransactionsApprovalRequest'));
@@ -686,5 +671,36 @@ codeunit 50045 "Custom Workflow Events"
     begin
         WorkflowManagement.HandleEvent(RunWorkflowOnCancelInternalTransfersTransactionsApprovalRequestCode, InternalTransfersTransactions);
     end;
+
+    //16) ---------My Payment Header---------------------------- ///
+
+    //------------------------------------------------------------------Send Payment Header approval start--------------------------------//
+    procedure RunWorkflowOnSendPaymentHeaderForApprovalCode(): code[128]
+    begin
+        exit(UpperCase('RunWorkflowOnSendPaymentHeaderForApproval'));
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::SwizzsoftApprovalsCodeUnit, 'FnOnSendPaymentHeaderForApprovalCode', '', false, false)]
+    procedure RunWorkflowOnSendPaymentHeaderForApproval(var InternalTransactions: Record "Payments Header")
+    begin
+        WorkflowManagement.HandleEvent(RunWorkflowOnSendPaymentHeaderForApprovalCode, InternalTransactions);
+    end;
+
+
+    // -------------------------------------------------end of Payment Header ----------------------------///
+
+
+    //----------------------------------------Cancel Payment Header Approval ------------------------------------//    
+    procedure RunWorkflowOnCancelPaymentHeaderApprovalCode(): code[128]
+    begin
+        exit(UpperCase('RunWorkflowOnCancelPaymentHeaderApproval'));
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::SwizzsoftApprovalsCodeUnit, 'FnOnCancelPaymentHeaderApprovalCode', '', false, false)]
+    procedure RunWorkflowOnCancelPaymentHeaderApproval(var InternalTransactions: Record "Payments Header")
+    begin
+        WorkflowManagement.HandleEvent(RunWorkflowOnCancelPaymentHeaderApprovalCode, InternalTransactions);
+    end;
+    //--------------------------------------------end of Cancel Payment Header Approval---------------------------------------///
 
 }

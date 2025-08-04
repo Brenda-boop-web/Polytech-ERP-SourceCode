@@ -607,6 +607,8 @@ Codeunit 50039 "SwizzsoftApprovalsCodeUnit"
         exit(WorkflowManagement.CanExecuteWorkflow(InternalTransfersTransactions, Psalmkitswfevents.RunWorkflowOnSendInternalTransfersTransactionsForApprovalCode));
     end;
 
+
+
     [IntegrationEvent(false, false)]
 
     procedure FnOnSendInternalTransfersTransactionsForApproval(var InternalTransfersTransactions: Record "Sacco Transfers")
@@ -658,5 +660,48 @@ Codeunit 50039 "SwizzsoftApprovalsCodeUnit"
     procedure FnOnCancelPaymentVoucherTransactionsApprovalRequest(var PaymentVoucherTransactions: Record "Payments Header")
     begin
     end;
+
+    //----My Payment Header Workflow implementation-------//
+
+    //----------------------------------------------------------------Send for Appproval Implementation-------------------------------///
+    procedure SendPaymentHeaderForApprovalCode(InternalTransactionTransfer: Code[40]; var PaymentHeader: Record "Payments Header")
+    begin
+        if FnCheckIfPaymentHeaderApprovalsWorkflowEnabled(PaymentHeader) then begin
+            FnOnSendPaymentHeaderForApprovalCode(PaymentHeader);
+        end;
+
+    end;
+
+    local procedure FnCheckIfPaymentHeaderApprovalsWorkflowEnabled(var PaymentHeader: Record "Payments Header"): Boolean;
+    begin
+        if not IsPaymentHeaderApprovalsWorkflowEnabled(PaymentHeader) then
+            Error(NoWorkflowEnabledErr);
+        exit(true);
+    end;
+
+    local procedure IsPaymentHeaderApprovalsWorkflowEnabled(var InternalTransfersTransactions: Record "Payments Header"): Boolean
+    begin
+        exit(WorkflowManagement.CanExecuteWorkflow(InternalTransfersTransactions, Psalmkitswfevents.RunWorkflowOnSendPaymentHeaderForApprovalCode));
+    end;
+
+    [IntegrationEvent(false, false)]
+    procedure FnOnSendPaymentHeaderForApprovalCode(var InternalTransactions: Record "Payments Header")
+    begin
+    end;
+
+    // ---------------------------------------  end of send Approval----------------------------------------------------------///
+
+    //--------------------------------- Cancel the Payment Head Start ---------------------------------------------//    
+    procedure CancelPaymentHeaderApprovalCode(InternalTransactionTransfer: Code[40]; var PaymentHeader: Record "Payments Header")
+    begin
+        FnOnCancelPaymentHeaderApprovalCode(PaymentHeader);
+    end;
+
+    [IntegrationEvent(false, false)]
+    procedure FnOnCancelPaymentHeaderApprovalCode(var InternalTransactions: Record "Payments Header")
+    begin
+    end;
+
+    // ---------------------------------------------- end of cancel Payment header -----------------------------------//
 }
 

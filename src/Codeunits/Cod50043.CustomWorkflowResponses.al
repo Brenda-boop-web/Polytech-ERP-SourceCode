@@ -23,17 +23,17 @@ codeunit 50043 "Custom Workflow Responses"
     procedure AddResponsePredecessors()
     begin
 
-        //Payment Header
-        // WFResponseHandler.AddResponsePredecessor(WFResponseHandler.SetStatusToPendingApprovalCode,
-        //  SwizzsoftWFEvents.RunWorkflowOnSendPaymentDocForApprovalCode);
-        // WFResponseHandler.AddResponsePredecessor(WFResponseHandler.CreateApprovalRequestsCode,
-        //                                          SwizzsoftWFEvents.RunWorkflowOnSendPaymentDocForApprovalCode);
-        // WFResponseHandler.AddResponsePredecessor(WFResponseHandler.SendApprovalRequestForApprovalCode,
-        //                                          SwizzsoftWFEvents.RunWorkflowOnSendPaymentDocForApprovalCode);
-        // // WFResponseHandler.AddResponsePredecessor(WFResponseHandler.OpenDocumentCode,
-        // //                                          SwizzsoftWFEvents.RunWorkflowOnCancelPaymentApprovalRequestCode);
-        // WFResponseHandler.AddResponsePredecessor(WFResponseHandler.CancelAllApprovalRequestsCode,
-        //                                          SwizzsoftWFEvents.RunWorkflowOnCancelPaymentApprovalRequestCode);
+        // Payment Header
+        WFResponseHandler.AddResponsePredecessor(WFResponseHandler.SetStatusToPendingApprovalCode,
+         SwizzsoftWFEvents.RunWorkflowOnSendPaymentHeaderForApprovalCode);
+        WFResponseHandler.AddResponsePredecessor(WFResponseHandler.CreateApprovalRequestsCode,
+                                                 SwizzsoftWFEvents.RunWorkflowOnSendPaymentHeaderForApprovalCode);
+        WFResponseHandler.AddResponsePredecessor(WFResponseHandler.SendApprovalRequestForApprovalCode,
+                                                 SwizzsoftWFEvents.RunWorkflowOnSendPaymentHeaderForApprovalCode);
+        WFResponseHandler.AddResponsePredecessor(WFResponseHandler.OpenDocumentCode,
+                                                 SwizzsoftWFEvents.RunWorkflowOnCancelPaymentHeaderApprovalCode);
+        WFResponseHandler.AddResponsePredecessor(WFResponseHandler.CancelAllApprovalRequestsCode,
+                                                 SwizzsoftWFEvents.RunWorkflowOnCancelPaymentHeaderApprovalCode);
 
         //Membership Application
         WFResponseHandler.AddResponsePredecessor(WFResponseHandler.SetStatusToPendingApprovalCode,
@@ -291,11 +291,11 @@ codeunit 50043 "Custom Workflow Responses"
         STOTransactions: record "Standing Orders";
         // ATMApplications: record "ATM Card Applications";
         SaccoTransfers: record "Sacco Transfers";
-        PaymentVoucher: record "Payment Header";
+        PaymentVoucher: record "Payments Header";
     begin
         case RecRef.Number of
             //Payment Header
-            Database::"Payment Header":
+            Database::"Payments Header":
                 begin
                     RecRef.SetTable(PaymentVoucher);
                     PaymentVoucher.Validate(Status, PaymentVoucher.Status::"Pending Approval");
@@ -408,7 +408,6 @@ codeunit 50043 "Custom Workflow Responses"
 
         end;
     end;
-
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnOpenDocument', '', true, true)]
     local procedure OnOpenDocument(RecRef: RecordRef; var Handled: Boolean)
@@ -725,8 +724,6 @@ codeunit 50043 "Custom Workflow Responses"
                 end;
         end;
     end;
-
-
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Workflow Response Handling", 'OnReleaseDocument', '', true, true)]
     local procedure OnReleaseDocument(RecRef: RecordRef; var Handled: Boolean)
